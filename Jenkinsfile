@@ -16,7 +16,7 @@ pipeline {
         }
       }
       steps {
-        sh 'cd ~/ && ls -al'
+        sh 'cd ~/usr/src/app/dist && ls -al'
         stash includes: 'build/**/*', name: 'build'
       }
     }
