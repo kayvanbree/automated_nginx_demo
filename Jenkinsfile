@@ -11,7 +11,7 @@ pipeline {
     stage('Fetch dependencies') {
       agent {
         docker {
-          'mhart/alpine-node:10'
+          image 'mhart/alpine-node:10'
           args '-u root:root'
         }
       }
