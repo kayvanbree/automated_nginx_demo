@@ -10,13 +10,13 @@ pipeline {
   stages {
     stage('Fetch dependencies') {
       agent {
-          docker 'mhart/alpine-node:10'
-          args: '-u root:root'
-        }
-        steps {
-          sh 'npm install'
-          stash includes: 'node_modules/', name: 'node_modules'
-        }
+        docker 'mhart/alpine-node:10'
+        args '-u root:root'
+      }
+      steps {
+        sh 'npm install'
+        stash includes: 'node_modules/', name: 'node_modules'
+      }
     }
 
     stage('Build') {
