@@ -12,12 +12,12 @@ pipeline {
       agent {
         dockerfile {
           filename 'Dockerfile.build'
-          args '-v /home/scubakay/jenkins_builds:/usr/src/app'
+          args '-v build:/usr/src/app/dist'
         }
       }
       steps {
-        sh 'cd home/scubakay/jenkins_builds && ls -al'
-        stash includes: '/usr/src/app/home/jenkins_builds/*', name: 'build'
+        sh 'cd dist && ls -al'
+        stash includes: 'dist/**/*', name: 'build'
       }
     }
 
