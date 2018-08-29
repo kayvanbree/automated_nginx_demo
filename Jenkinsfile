@@ -15,7 +15,6 @@ pipeline {
         }
       }
       steps {
-        sh 'cd /usr/src/app && npm run build'
         stash includes: '/usr/src/app/dist', name: 'build'
       }
     }
