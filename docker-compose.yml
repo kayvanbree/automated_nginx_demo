@@ -8,6 +8,8 @@ services:
     environment:
       VIRTUAL_HOST: http://demo.136.144.216.182/
       VIRTUAL_PORT: 3000
+    stdin_open: true
+    tty: true
 
 networks:
   default:
