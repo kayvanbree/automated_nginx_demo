@@ -13,7 +13,7 @@ pipeline {
           docker 'mhart/alpine-node:10'
         }
         steps {
-          echo '$USER'
+          echo $USER
           sh 'npm install'
           stash includes: 'node_modules/', name: 'node_modules'
         }
