@@ -1,0 +1,9 @@
+FROM nginx:1.11-alpine
+
+# Files for running this docker container
+COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
+
+# in the Build step (deploy script of package.json) a build is made and uploaded
+# to the internal update site. In the Containerize step, the build is downloaded
+# and extracted to the folder artifacts.
+COPY dist /usr/share/nginx/html/angular
