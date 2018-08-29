@@ -10,8 +10,10 @@ pipeline {
   stages {
     stage('Fetch dependencies') {
       agent {
-        docker 'mhart/alpine-node:10'
-        args '-u root:root'
+        docker {
+          'mhart/alpine-node:10'
+          args '-u root:root'
+        }
       }
       steps {
         sh 'npm install'
