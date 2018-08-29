@@ -2,18 +2,18 @@ pipeline {
   agent any
 
   stages {
-    stage('Fetch dependencies') {
-      agent {
-        docker {
-          image 'mhart/alpine-node:10'
-          args '-u root:root'
-        }
-      }
-      steps {
-        sh 'npm install'
-        stash includes: 'node_modules/', name: 'node_modules'
-      }
-    }
+    //stage('Fetch dependencies') {
+    //  agent {
+    //    docker {
+    //      image 'mhart/alpine-node:10'
+    //      args '-u root:root'
+    //    }
+    //  }
+    //  steps {
+    //    sh 'npm install'
+    //    stash includes: 'node_modules/', name: 'node_modules'
+    //  }
+    //}
 
     //stage('Unit Test') {
     //  agent {
@@ -35,6 +35,7 @@ pipeline {
       steps {
         sh 'ls -al'
         unstash 'node_modules'
+        sh 'npm install'
         sh 'npm run build'
         stash includes: 'dist/', name: 'dist'
       }
