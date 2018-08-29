@@ -30,7 +30,6 @@ pipeline {
       agent {
         docker {
           image 'mhart/alpine-node:10'
-          args '-u root:root'
         }
       }
       steps {
