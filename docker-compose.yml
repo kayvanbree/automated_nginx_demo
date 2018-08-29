@@ -2,7 +2,7 @@ version: '3'
 
 services:
   automated-nginx-demo:
-    image: scubakay/automated_nginx_demo:latest
+    image: scubakay/automated_nginx_demo
     expose:
       - 80
     ports:
