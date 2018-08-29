@@ -1,5 +1,5 @@
 pipeline {
-  agent any
+  agent "master"
 
   environment {
     DOCKER_IMAGE_SCOPE = 'scubakay'
