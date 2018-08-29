@@ -33,6 +33,7 @@ pipeline {
         }
       }
       steps {
+        sh 'ls -al'
         unstash 'node_modules'
         sh 'npm run build'
         stash includes: 'dist/', name: 'dist'
