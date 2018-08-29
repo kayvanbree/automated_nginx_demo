@@ -2,7 +2,7 @@ version: '3'
 
 services:
   automated-nginx-demo:
-    image: scubakay/automated_nginx_demo:master
+    image: scubakay/automated_nginx_demo:latest
     ports:
       - "3000:80"
     environment:
