@@ -45,14 +45,14 @@ pipeline {
       environment {
         DOCKER_IMAGE_SCOPE = 'scubakay'
         DOCKER_IMAGE_NAME = 'automated_nginx_demo'
-        DOCKER_IMAGE_VERSION = 'master'
+        DOCKER_IMAGE_VERSION = 'latest'
       }
       steps {
         unstash 'dist'
         withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerhub_p', usernameVariable: 'dockerhub_u')]) {
-          sh 'docker build -t ${DOCKER_IMAGE_SCOPE}/${DOCKER_IMAGE_NAME}:${BRANCH_NAME} .'
+          sh 'docker build -t ${DOCKER_IMAGE_SCOPE}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} .'
           sh 'docker login -u ${dockerhub_u} -p ${dockerhub_p}'
-          sh 'docker push ${DOCKER_IMAGE_SCOPE}/${DOCKER_IMAGE_NAME}:${BRANCH_NAME}'
+          sh 'docker push ${DOCKER_IMAGE_SCOPE}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}'
         }
       }
     }
