@@ -12,7 +12,7 @@ pipeline {
       agent {
         dockerfile {
           filename 'Dockerfile.build'
-          args '-v ./build:/usr/src/app/dist/automated-nginx-demo'
+          args '-v build:/usr/src/app/dist/automated-nginx-demo'
         }
       }
       steps {
