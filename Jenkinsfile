@@ -51,7 +51,7 @@ pipeline {
         unstash 'dist'
         withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerhub_p', usernameVariable: 'dockerhub_u')]) {
           sh 'docker build -t ${DOCKER_IMAGE_SCOPE}/${DOCKER_IMAGE_NAME}:${BRANCH_NAME} .'
-          sh 'docker login -u ${dockerhub_p} -p ${dockerhub_p}'
+          sh 'docker login -u ${dockerhub_u} -p ${dockerhub_p}'
           sh 'docker push ${DOCKER_IMAGE_SCOPE}/${DOCKER_IMAGE_NAME}:${BRANCH_NAME}'
         }
       }
