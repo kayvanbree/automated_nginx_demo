@@ -12,11 +12,10 @@ pipeline {
       agent {
         dockerfile {
           filename 'Dockerfile.build'
-          args '-v build:/usr/src/app/dist'
         }
       }
       steps {
-        sh 'cd build && ls -al'
+        sh 'ls -al'
         stash includes: 'build/**/*', name: 'build'
       }
     }
