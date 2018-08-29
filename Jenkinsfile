@@ -1,7 +1,5 @@
 pipeline {
-  agent {
-    label "master"
-  }
+  agent any
 
   environment {
     DOCKER_IMAGE_SCOPE = 'scubakay'
@@ -14,7 +12,6 @@ pipeline {
       agent {
         dockerfile {
           filename 'Dockerfile.build'
-          label 'docker'
         }
       }
       steps {
