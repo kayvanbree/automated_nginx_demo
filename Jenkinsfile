@@ -59,7 +59,7 @@ pipeline {
 
     stage('Deploy') {
       steps {
-        sh 'docker-compose up -d --verbose'
+        sh 'docker-compose up --verbose -d'
       }
     }
   }
