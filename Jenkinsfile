@@ -17,7 +17,7 @@ pipeline {
       }
       steps {
         sh 'cd ~/usr/src/app/dist && ls -al'
-        stash includes: 'build/**/*', name: 'build'
+        stash includes: 'build/*', name: 'build'
       }
     }
 
