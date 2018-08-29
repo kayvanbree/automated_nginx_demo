@@ -1,12 +1,6 @@
 pipeline {
   agent any
 
-  environment {
-    DOCKER_IMAGE_SCOPE = 'scubakay'
-    DOCKER_IMAGE_NAME = 'automated_nginx_demo'
-    DOCKER_IMAGE_VERSION = 'latest'
-  }
-
   stages {
     stage('Fetch dependencies') {
       agent {
@@ -21,23 +15,44 @@ pipeline {
       }
     }
 
-    stage('Build') {
+    //stage('Unit Test') {
+    //  agent {
+    //    docker 'weboaks/node-karma-protractor-chrome'
+    //  }
+    //  steps {
+    //    unstash 'node_modules'
+    //    sh 'npm run test:ci'
+    //    junit 'reports/**/*.xml'
+    //  }
+    //}
+
+    stage('Compile') {
       agent {
-        dockerfile {
-          filename 'Dockerfile.build'
+        docker {
+          image 'mhart/alpine-node:10'
+          args '-u root:root'
         }
       }
       steps {
-        sh 'ls -al'
-        sh 'cd /usr/src/app/dist/automated-nginx-demo && ls -al'
-        stash includes: '/usr/src/app/dist/build/', name: 'build'
+        unstash 'node_modules'
+        sh 'npm run build'
+        stash includes: 'dist/', name: 'dist'
       }
     }
 
-    stage('Containerize') {
+    stage('Build and Push Docker Image') {
+      agent any
+      environment {
+        DOCKER_IMAGE_SCOPE = 'scubakay'
+        DOCKER_IMAGE_NAME = 'automated_nginx_demo'
+        DOCKER_IMAGE_VERSION = 'latest'
+      }
       steps {
-        unstash 'build'
-        sh 'docker build -f "Dockerfile.production" -t ${DOCKER_IMAGE_SCOPE}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} .'
+        unstash 'dist'
+        sh 'docker build -t ${DOCKER_IMAGE_SCOPE}/${DOCKER_IMAGE_NAME}:${BRANCH_NAME} .'
+
+        // sh 'docker login -u $DOCKER_PUSH_USR -p $DOCKER_PUSH_PSW $DOCKER_PUSH_URL'
+        // sh 'docker push $DOCKER_PUSH_URL/frontend'
       }
     }
 
