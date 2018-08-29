@@ -1,8 +1,6 @@
 services:
   automated-nginx-demo:
-    build:
-      context: .
-      dockerfile: Dockerfile.production
+    image: scubakay/automated_nginx_demo:latest
     expose:
       - 80
     ports:
