@@ -16,7 +16,7 @@ pipeline {
       }
       steps {
         sh 'ls -al'
-        sh 'cd /usr/src/app/dist && ls -al'
+        sh 'cd /usr/src/app/dist/automated-nginx-demo && ls -al'
         stash includes: '/usr/src/app/dist/build/**/*', name: 'build'
       }
     }
