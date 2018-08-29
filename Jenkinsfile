@@ -16,7 +16,7 @@ pipeline {
         }
       }
       steps {
-        sh 'cd ~/home/scubakay/jenkins_builds && ls -al'
+        sh 'cd home/scubakay/jenkins_builds && ls -al'
         stash includes: '/usr/src/app/home/jenkins_builds/*', name: 'build'
       }
     }
