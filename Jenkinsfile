@@ -8,12 +8,14 @@ pipeline {
   }
 
   stages {
-    agent {
-      docker 'mhart/alpine-node:10'
-    }
-    steps {
-      sh 'npm install'
-      stash includes: 'node_modules/', name: 'node_modules'
+    stage('Fetch dependencies') {
+      agent {
+          docker 'mhart/alpine-node:10'
+        }
+        steps {
+          sh 'npm install'
+          stash includes: 'node_modules/', name: 'node_modules'
+        }
     }
 
     stage('Build') {
