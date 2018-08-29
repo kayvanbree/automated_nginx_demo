@@ -15,7 +15,7 @@ pipeline {
         }
       }
       steps {
-        stash includes: '/usr/src/app/dist', name: 'build'
+        stash includes: '/usr/src/app/dist/**/*', name: 'build'
       }
     }
 
