@@ -12,11 +12,12 @@ pipeline {
       agent {
         dockerfile {
           filename 'Dockerfile.build'
+          args '-v ./build:/usr/src/app/dist/automated-nginx-demo'
         }
       }
       steps {
         sh 'cd /usr/src/app/dist/automated-nginx-demo && ls -al'
-        stash includes: './dist/automated-nginx-demo/**/*', name: 'build'
+        stash includes: './build/**/*', name: 'build'
       }
     }
 
