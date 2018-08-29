@@ -8,6 +8,14 @@ pipeline {
   }
 
   stages {
+    agent {
+      docker 'mhart/alpine-node:10'
+    }
+    steps {
+      sh 'npm install'
+      stash includes: 'node_modules/', name: 'node_modules'
+    }
+
     stage('Build') {
       agent {
         dockerfile {
@@ -17,7 +25,7 @@ pipeline {
       steps {
         sh 'ls -al'
         sh 'cd /usr/src/app/dist/automated-nginx-demo && ls -al'
-        stash includes: '/usr/src/app/dist/build/**', name: 'build'
+        stash includes: '/usr/src/app/dist/build/', name: 'build'
       }
     }
 
