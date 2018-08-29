@@ -1,14 +1,13 @@
 pipeline {
-  agent any
+  agent {
+    docker {
+      image 'mhart/alpine-node:10'
+      args '-u root:root'
+    }
+  }
 
   stages {
     stage('Fetch dependencies') {
-      agent {
-        docker {
-          image 'mhart/alpine-node:10'
-          args '-u root:root'
-        }
-      }
       steps {
         sh 'npm install'
         stash includes: 'node_modules/', name: 'node_modules'
@@ -27,12 +26,6 @@ pipeline {
     //}
 
     stage('Compile') {
-      agent {
-        docker {
-          image 'mhart/alpine-node:10'
-          args '-u root:root'
-        }
-      }
       steps {
         unstash 'node_modules'
         sh 'npm run build'
@@ -41,7 +34,9 @@ pipeline {
     }
 
     stage('Build and Push Docker Image') {
-      agent any
+      agent {
+        label "master"
+      }
       environment {
         DOCKER_IMAGE_SCOPE = 'scubakay'
         DOCKER_IMAGE_NAME = 'automated_nginx_demo'
@@ -57,6 +52,9 @@ pipeline {
     }
 
     stage('Deploy') {
+      agent {
+        label "master"
+      }
       steps {
         sh 'docker-compose up -d'
       }
