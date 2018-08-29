@@ -12,7 +12,7 @@ pipeline {
       agent {
         dockerfile {
           filename 'Dockerfile.build'
-          args '-v ~/home/jenkins_builds:build:/usr/src/app/dist/automated-nginx-demo'
+          args '-v /home/jenkins_builds:build:/usr/src/app/dist/automated-nginx-demo'
         }
       }
       steps {
