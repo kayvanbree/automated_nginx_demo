@@ -37,7 +37,7 @@ pipeline {
         // unstash 'node_modules'
         sh 'npm install'
         sh 'npm run build'
-        stash includes: 'dist/', name: 'dist'
+        stash includes: 'dist/automated_nginx_demo/', name: 'dist'
       }
     }
 
