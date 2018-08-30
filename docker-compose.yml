@@ -7,8 +7,6 @@ services:
       - 80
     environment:
       VIRTUAL_HOST: 136.144.216.182
-    stdin_open: true
-    tty: true
     restart: unless-stopped
 
 networks:
