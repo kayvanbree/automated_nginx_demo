@@ -3,11 +3,9 @@ version: '3'
 services:
   automated-nginx-demo:
     image: scubakay/automated_nginx_demo:latest
-    ports:
-      - "3000:80"
+    expose: 80
     environment:
-      VIRTUAL_HOST: http://demo.136.144.216.182/
-      VIRTUAL_PORT: 3000
+      VIRTUAL_HOST: 136.144.216.182
     stdin_open: true
     tty: true
     restart: unless-stopped
