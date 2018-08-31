@@ -4,13 +4,13 @@ services:
   automated-nginx-demo:
     image: scubakay/automated_nginx_demo:latest
     environment:
-      VIRTUAL_HOST: 136.144.216.182,www.136.144.216.182
+      VIRTUAL_HOST: demo.dev.scubakay.com
     restart: unless-stopped
 
   automated-nginx-demo2:
     image: scubakay/automated_nginx_demo:latest
     environment:
-      VIRTUAL_HOST: demo.136.144.216.182
+      VIRTUAL_HOST: dev.scubakay.com
     restart: unless-stopped
 
 networks:
