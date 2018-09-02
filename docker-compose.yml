@@ -4,16 +4,8 @@ services:
   automated-nginx-demo:
     image: scubakay/automated_nginx_demo:latest
     environment:
-      VIRTUAL_HOST: demo.dev.scubakay.com
-      LETSENCRYPT_HOST: demo.dev.scubakay.com
-      LETSENCRYPT_EMAIL: xxx@xxx
-    restart: unless-stopped
-
-  automated-nginx-demo2:
-    image: scubakay/automated_nginx_demo:latest
-    environment:
       VIRTUAL_HOST: dev.scubakay.com
-      LETSENCRYPT_HOST: dev.scubakay.com
+      LETSENCRYPT_HOST: demo.dev.scubakay.com
       LETSENCRYPT_EMAIL: xxx@xxx
     restart: unless-stopped
 
