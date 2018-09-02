@@ -8,6 +8,7 @@ services:
       LETSENCRYPT_HOST: dev.scubakay.com
       LETSENCRYPT_EMAIL: xxx@xxx
     restart: unless-stopped
+    container_name: automated_nginx_demo1
 
   automated-nginx-demo2:
       image: scubakay/automated_nginx_demo:latest
@@ -16,6 +17,7 @@ services:
         LETSENCRYPT_HOST: demo.scubakay.com
         LETSENCRYPT_EMAIL: xxx@xxx
       restart: unless-stopped
+      container_name: automated_nginx_demo2
 
 networks:
   default:
