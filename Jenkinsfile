@@ -4,7 +4,7 @@ pipeline {
   environment {
     DOCKER_IMAGE_SCOPE = 'scubakay'
     DOCKER_IMAGE_NAME = 'automated_nginx_demo'
-    DOMAIN = "${env.BRANCH_NAME + '.nginx.demo.scubakay.com'}"
+    DOMAIN = appendBranchName('.nginx.demo.scubakay.com')
   }
 
   stages {
@@ -58,26 +58,7 @@ pipeline {
       }
     }
 
-    stage('Deploy master') {
-      when { branch 'master' }
-      environment {
-        DOMAIN = 'nginx.demo.scubakay.com'
-      }
-      steps {
-        script {
-          sh 'echo "Deploying to ${DOMAIN}"...'
-          sh 'docker-compose down --rmi all'
-          sh 'docker-compose pull'
-          sh 'docker-compose config'
-          sh 'docker-compose up -d'
-        }
-      }
-    }
-
-    stage('Deploy branch') {
-      when {
-        not { branch 'master' }
-      }
+    stage('Deploy') {
       steps {
         script {
           sh 'echo "Deploying to ${DOMAIN}"...'
@@ -89,4 +70,11 @@ pipeline {
       }
     }
   }
+}
+
+def appendBranchName(String url) {
+  if (env.BRANCH_NAME != 'master') {
+    return "${env.BRANCH_NAME + '.nginx.demo.scubakay.com'}"
+  }
+  return url
 }
