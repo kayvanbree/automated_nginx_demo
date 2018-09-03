@@ -50,7 +50,7 @@ pipeline {
     stage('Build and Push Docker Image') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerhub_p', usernameVariable: 'dockerhub_u')]) {
-          sh 'chmod -R u+w dist/
+          sh 'chmod -R u+w dist/'
           unstash 'dist'
           sh 'docker build -t ${DOCKER_IMAGE_SCOPE}/${DOCKER_IMAGE_NAME}:${BRANCH_NAME} .'
           sh 'docker login -u ${dockerhub_u} -p ${dockerhub_p}'
