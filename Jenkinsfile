@@ -51,18 +51,10 @@ pipeline {
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerhub_p', usernameVariable: 'dockerhub_u')]) {
           unstash 'dist'
-          sh 'docker build -t ${DOCKER_IMAGE_SCOPE}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} .'
+          sh 'docker build -t ${DOCKER_IMAGE_SCOPE}/${DOCKER_IMAGE_NAME}:${BRANCH_NAME} .'
           sh 'docker login -u ${dockerhub_u} -p ${dockerhub_p}'
-          sh 'docker push ${DOCKER_IMAGE_SCOPE}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}'
+          sh 'docker push ${DOCKER_IMAGE_SCOPE}/${DOCKER_IMAGE_NAME}:${BRANCH_NAME}'
         }
-      }
-    }
-
-    stage('Deploy') {
-      steps {
-        sh 'docker-compose down --rmi all'
-        sh 'docker-compose pull'
-        sh 'docker-compose up -d'
       }
     }
 
