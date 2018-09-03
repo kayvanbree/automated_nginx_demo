@@ -8,7 +8,7 @@ services:
       LETSENCRYPT_HOST: ${DOMAIN}
       LETSENCRYPT_EMAIL: xxx@xxx
     restart: unless-stopped
-    container_name: ${DOCKER_IMAGE_NAME}:${BRANCH_NAME}
+    container_name: ${DOCKER_IMAGE_NAME}_${BRANCH_NAME}
 
 networks:
   default:
