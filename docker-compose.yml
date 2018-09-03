@@ -2,22 +2,13 @@ version: '3'
 
 services:
   automated-nginx-demo:
-    image: scubakay/automated_nginx_demo:latest
+    image: ${DOCKER_IMAGE_SCOPE}/${DOCKER_IMAGE_NAME}:${BRANCH_NAME}
     environment:
-      VIRTUAL_HOST: dev.scubakay.com
-      LETSENCRYPT_HOST: dev.scubakay.com
+      VIRTUAL_HOST: ${DOMAIN},dev.136.144.216.182
+      LETSENCRYPT_HOST: ${DOMAIN}
       LETSENCRYPT_EMAIL: xxx@xxx
     restart: unless-stopped
-    container_name: automated_nginx_demo1
-
-  automated-nginx-demo2:
-      image: scubakay/automated_nginx_demo:latest
-      environment:
-        VIRTUAL_HOST: demo.scubakay.com
-        LETSENCRYPT_HOST: demo.scubakay.com
-        LETSENCRYPT_EMAIL: xxx@xxx
-      restart: unless-stopped
-      container_name: automated_nginx_demo2
+    container_name: ${DOCKER_IMAGE_NAME}:${BRANCH_NAME}
 
 networks:
   default:

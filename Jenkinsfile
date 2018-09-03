@@ -1,6 +1,12 @@
 pipeline {
   agent any
 
+  environment {
+    DOCKER_IMAGE_SCOPE = 'scubakay'
+    DOCKER_IMAGE_NAME = 'automated_nginx_demo'
+    DOMAIN = "${env.BRANCH_NAME + '.nginx.scubakay.com'}"
+  }
+
   stages {
     //stage('Fetch dependencies') {
     //  agent {
@@ -42,11 +48,6 @@ pipeline {
     }
 
     stage('Build and Push Docker Image') {
-      environment {
-        DOCKER_IMAGE_SCOPE = 'scubakay'
-        DOCKER_IMAGE_NAME = 'automated_nginx_demo'
-        DOCKER_IMAGE_VERSION = 'latest'
-      }
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerhub_p', usernameVariable: 'dockerhub_u')]) {
           unstash 'dist'
@@ -62,6 +63,37 @@ pipeline {
         sh 'docker-compose down --rmi all'
         sh 'docker-compose pull'
         sh 'docker-compose up -d'
+      }
+    }
+
+    stage('Deploy master') {
+      when { branch 'master' }
+      environment {
+        DOMAIN = 'nginx.scubakay.com'
+      }
+      steps {
+        script {
+          sh 'echo "Deploying to ${DOMAIN}"...'
+          sh 'docker-compose down --rmi all'
+          sh 'docker-compose pull'
+          sh 'docker-compose config'
+          sh 'docker-compose up -d'
+        }
+      }
+    }
+
+    stage('Deploy branch') {
+      when {
+        not { branch 'master' }
+      }
+      steps {
+        script {
+          sh 'echo "Deploying to ${DOMAIN}"...'
+          sh 'docker-compose down --rmi all'
+          sh 'docker-compose pull'
+          sh 'docker-compose config'
+          sh 'docker-compose up -d'
+        }
       }
     }
   }
