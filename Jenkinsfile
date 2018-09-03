@@ -4,8 +4,7 @@ pipeline {
   environment {
     DOCKER_IMAGE_SCOPE = 'scubakay'
     DOCKER_IMAGE_NAME = 'automated_nginx_demo'
-    URL = 'nginx.demo.scubakay.com'
-    DOMAIN = appendBranchName(env.URL)
+    DOMAIN = appendBranchName('nginx.demo.scubakay.com')
   }
 
   stages {
