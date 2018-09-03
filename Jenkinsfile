@@ -4,7 +4,8 @@ pipeline {
   environment {
     DOCKER_IMAGE_SCOPE = 'scubakay'
     DOCKER_IMAGE_NAME = 'automated_nginx_demo'
-    DOMAIN = appendBranchName('.nginx.demo.scubakay.com')
+    URL = 'nginx.demo.scubakay.com'
+    DOMAIN = appendBranchName(env.URL)
   }
 
   stages {
@@ -74,7 +75,7 @@ pipeline {
 
 def appendBranchName(String url) {
   if (env.BRANCH_NAME != 'master') {
-    return "${env.BRANCH_NAME + '.nginx.demo.scubakay.com'}"
+    return "${env.BRANCH_NAME + '.' + url}"
   }
   return url
 }
