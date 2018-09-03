@@ -4,7 +4,7 @@ pipeline {
   environment {
     DOCKER_IMAGE_SCOPE = 'scubakay'
     DOCKER_IMAGE_NAME = 'automated_nginx_demo'
-    DOMAIN = "${env.BRANCH_NAME + '.nginx.scubakay.com'}"
+    DOMAIN = "${env.BRANCH_NAME + '.dev.scubakay.com'}"
   }
 
   stages {
@@ -61,7 +61,7 @@ pipeline {
     stage('Deploy master') {
       when { branch 'master' }
       environment {
-        DOMAIN = 'nginx.scubakay.com'
+        DOMAIN = 'dev.scubakay.com'
       }
       steps {
         script {
